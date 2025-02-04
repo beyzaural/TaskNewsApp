@@ -9,16 +9,27 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            // All Articles Tab
+                        NavigationView {
+                            ArticleListView(articles: Article.previewData) // Replace with your actual data source
+                                .navigationTitle("All Articles")
+                        }
+                        .tabItem {
+                            Label("All Articles", systemImage: "list.bullet")
+                        }
+            
+            BookmarkTabView()
+                .tabItem {
+                    Label("Saved", systemImage: "bookmark")
+                }
         }
-        .padding()
+         
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
