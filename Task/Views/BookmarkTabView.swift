@@ -1,10 +1,3 @@
-//
-//  BookmarkTabView.swift
-//  Task
-//
-//  Created by beyza ural on 4.02.2025.
-//
-
 import SwiftUI
 
 struct BookmarkTabView: View {
@@ -43,7 +36,6 @@ struct BookmarkTabView: View {
 }
 
 struct BookmarkTabView_Previews: PreviewProvider {
-    
     @StateObject static var articleBookmarkVM = ArticleBookmarkViewModel.shared
 
     static var previews: some View {
@@ -51,3 +43,4 @@ struct BookmarkTabView_Previews: PreviewProvider {
             .environmentObject(articleBookmarkVM)
     }
 }
+
