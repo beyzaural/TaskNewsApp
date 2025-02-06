@@ -4,7 +4,6 @@
 //
 //  Created by beyza ural on 3.02.2025.
 //
-
 import SwiftUI
 
 struct ContentView: View {
@@ -12,7 +11,7 @@ struct ContentView: View {
         TabView {
             // All Articles Tab
             NavigationView {
-                ArticleListView(articles: Article.previewData)
+                ArticleListView() // No argument needed
             }
             .tabItem {
                 Label("All Articles", systemImage: "list.bullet")
