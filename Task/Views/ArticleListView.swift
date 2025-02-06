@@ -71,7 +71,6 @@ struct ArticleListView: View {
             .onAppear {
                 loadArticles()
             }
-            .onAppear(perform: loadMoreIfNeeded)
         }
         .navigationTitle("All Articles")
     }
@@ -95,20 +94,17 @@ struct ArticleListView: View {
         }
     }
     
-    private func loadMoreIfNeeded() {
-        guard !isLoading else { return }
-        guard articles.count % 20 == 0 else { return } // Only load if pageSize is met
-        page += 1
-        loadArticles()
-    }
-    
     private func loadArticles() {
         isLoading = true
         NewsAPI.fetchNews(page: page, pageSize: 20) { result in
             switch result {
             case .success(let newArticles):
                 DispatchQueue.main.async {
-                    self.articles.append(contentsOf: newArticles)
+                    // Remove duplicates based on the `url` property
+                    let uniqueArticles = newArticles.filter { newArticle in
+                        !self.articles.contains(where: { $0.url == newArticle.url })
+                    }
+                    self.articles.append(contentsOf: uniqueArticles)
                     self.isLoading = false
                 }
             case .failure(let error):

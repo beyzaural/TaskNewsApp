@@ -12,7 +12,7 @@ struct NewsAPI {
     static let baseURL = "https://newsapi.org/v2/everything"
     
     static func fetchNews(page: Int, pageSize: Int, completion: @escaping (Result<[Article], Error>) -> Void) {
-        let query = "Tesla" // Replace with your preferred query
+        let query = "Tesla"
         guard let url = URL(string: "\(baseURL)?q=\(query)&page=\(page)&pageSize=\(pageSize)&apiKey=\(apiKey)") else {
             completion(.failure(URLError(.badURL)))
             return
