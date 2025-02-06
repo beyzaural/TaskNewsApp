@@ -3,19 +3,7 @@
   "status": "ok",
   "totalResults": 6040,
   "articles": [
-    {
-      "source": {
-        "id": "business-insider",
-        "name": "Business Insider"
-      },
-      "author": "ktan@businessinsider.com (Kwan Wei Kevin Tan)",
-      "title": "Federal employee unions are suing the Treasury and alleging Elon Musk's DOGE gained illegal and 'unprecedented' access to data",
-      "description": "The lawsuit accused Treasury Secretary Scott Bessent of giving Musk's Department of Government Efficiency access to sensitive information.",
-      "url": "https://www.businessinsider.com/union-groups-sue-accuse-treasury-giving-doge-access-data-2025-2",
-      "urlToImage": "https://i.insider.com/67a18136eb4be2fff9a36064?width=1200&format=jpeg",
-      "publishedAt": "2025-02-04T07:56:58Z",
-      "content": "Three federal employee unions have accused the Treasury Department of giving Elon Musk's Department of Government Efficiency unlawful access to sensitive information..."
-    },
+    
     {
       "source": {
         "id": null,

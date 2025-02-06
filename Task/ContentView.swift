@@ -18,10 +18,13 @@ struct ContentView: View {
                 Label("All Articles", systemImage: "list.bullet")
             }
             
-            BookmarkTabView()
-                .tabItem {
-                    Label("Saved", systemImage: "bookmark")
-                }
+            // Saved Articles Tab
+            NavigationView {
+                BookmarkTabView()
+            }
+            .tabItem {
+                Label("Saved", systemImage: "bookmark")
+            }
         }
     }
 }
