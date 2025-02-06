@@ -8,7 +8,7 @@ struct ArticleListView: View {
     @EnvironmentObject var articleBookmarkVM: ArticleBookmarkViewModel
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             // Custom Search Bar with Sort Button
             HStack {
                 // Search Bar
@@ -38,7 +38,7 @@ struct ArticleListView: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.top, 8)
+            //.padding(.top, 8)
             
             // Articles List
             List {
