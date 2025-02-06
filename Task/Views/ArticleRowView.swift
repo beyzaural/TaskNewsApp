@@ -65,6 +65,7 @@ struct ArticleRowView: View {
                             .frame(width: 44, height: 44) // Larger tappable area
                             .background(Color.gray.opacity(0.1)) // Optional background
                             .cornerRadius(8) // Optional rounded edges
+                            .foregroundColor(.black)
                     }
                     .buttonStyle(.borderless)
                     
@@ -77,6 +78,7 @@ struct ArticleRowView: View {
                             .frame(width: 44, height: 44) // Larger tappable area
                             .background(Color.gray.opacity(0.1)) // Optional background
                             .cornerRadius(8) // Optional rounded edges
+                            .foregroundColor(.black)
                     }
                     .buttonStyle(.borderless)
                 }
