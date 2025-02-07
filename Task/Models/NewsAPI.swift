@@ -23,7 +23,7 @@ struct NewsAPI {
                 completion(.failure(error))
                 return
             }
-            
+            //URL oluşturulamazsa,
             guard let data = data else {
                 completion(.failure(URLError(.badServerResponse)))
                 return
@@ -32,6 +32,7 @@ struct NewsAPI {
             do {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
+                // JSON data, NewsAPIResponse yapısına decode edildi.
                 let response = try decoder.decode(NewsAPIResponse.self, from: data)
                 completion(.success(response.articles ?? []))
             } catch {

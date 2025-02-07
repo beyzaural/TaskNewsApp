@@ -10,9 +10,10 @@ fileprivate let relativeDateFormatter = RelativeDateTimeFormatter()
 
 struct Article {
     
-    // This id will be unique and auto generated from client side to avoid clashing of Identifiable in a List as NewsAPI response doesn't provide unique identifier
-    var id: String { url } // Use `url` as the unique identifier
+
+    var id: String { url } // Used `url` as the unique identifier because order date show article multiple times
     
+    //title property is constant once the Article is created because of let
     let source: Source
     let title: String
     let url: String
@@ -32,6 +33,8 @@ struct Article {
         case description
         case urlToImage
     }
+    //var properties can change after initialization
+    //author's name or an empty string
     var authorText: String {
             author ?? ""
         }
@@ -70,6 +73,7 @@ extension Article {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .iso8601
         
+        // can decode JSON data into Swift objects(remember codable)
         let apiResponse = try! jsonDecoder.decode(NewsAPIResponse.self, from: data)
         return apiResponse.articles ?? []
     }

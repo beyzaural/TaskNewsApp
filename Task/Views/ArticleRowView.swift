@@ -1,3 +1,9 @@
+//
+//  ArticleRowView.swift
+//  Task
+//
+//  Created by beyza ural on 4.02.2025.
+//
 import SwiftUI
 
 struct ArticleRowView: View {

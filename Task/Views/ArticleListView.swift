@@ -1,12 +1,19 @@
+//
+//  ArticleListView.swift
+//  Task
+//
+//  Created by beyza ural on 4.02.2025.
+//
 import SwiftUI
 
 struct ArticleListView: View {
     @State private var articles: [Article] = []
+    //tracks the current page number for pagination
     @State private var page: Int = 1
-    @State private var isLoading: Bool = false
+    @State private var isLoading: Bool = false //check
     @State private var searchText: String = ""
     @State private var sortByDate: Bool = false
-    @State private var showDatePicker: Bool = false
+    @State private var showDatePicker: Bool = false // visibility of the date picking thing
     @State private var selectedStartDate: Date? = nil
     @State private var selectedEndDate: Date? = nil
     @EnvironmentObject var articleBookmarkVM: ArticleBookmarkViewModel
@@ -16,7 +23,7 @@ struct ArticleListView: View {
             // Custom Search Bar with Sort Button
             HStack {
                 // Search Bar
-                HStack {
+                HStack {//horizontal stack on left add büyüteç
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
                     TextField("Search", text: $searchText)
@@ -65,6 +72,7 @@ struct ArticleListView: View {
             // Articles List
             List {
                 ForEach(filteredArticles) { article in
+                    //Each article in navigationlink to navigate to their detail
                     NavigationLink(destination: ArticleDetailView(article: article)) {
                         ArticleRowView(article: article)
                             .padding(.vertical, 8)
