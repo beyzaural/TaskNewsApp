@@ -34,6 +34,13 @@ struct BookmarkTabView: View {
                 ForEach(filteredArticles) { article in
                     ArticleRowView(article: article)
                         .padding(.vertical, 8)
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                removeFromBookmarks(article: article)
+                            } label: {
+                                Label("Remove", systemImage: "trash")
+                            }
+                        }
                 }
             }
             .listStyle(.plain)
@@ -59,6 +66,10 @@ struct BookmarkTabView: View {
         if isEmpty {
             EmptyPlaceholderView(text: "No saved articles", image: Image(systemName: "bookmark"))
         }
+    }
+
+    private func removeFromBookmarks(article: Article) {
+        articleBookmarkVM.removeBookmark(for: article)
     }
 }
 

@@ -6,12 +6,16 @@ struct ArticleListView: View {
     @State private var isLoading: Bool = false
     @State private var searchText: String = ""
     @State private var sortByDate: Bool = false
+    @State private var showDatePicker: Bool = false
+    @State private var selectedStartDate: Date? = nil
+    @State private var selectedEndDate: Date? = nil
     @EnvironmentObject var articleBookmarkVM: ArticleBookmarkViewModel
     
     var body: some View {
         VStack(spacing: 0) {
             // Custom Search Bar with Sort Button
             HStack {
+                // Search Bar
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
@@ -23,6 +27,26 @@ struct ArticleListView: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 
+                // Calendar Button
+                Button(action: {
+                    showDatePicker.toggle()
+                }) {
+                    Image(systemName: "calendar")
+                        .font(.title2)
+                        .padding(10)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(15)
+                        .foregroundColor(.black)
+                }
+                .sheet(isPresented: $showDatePicker) {
+                    DateRangePickerView(
+                        selectedStartDate: $selectedStartDate,
+                        selectedEndDate: $selectedEndDate,
+                        onApply: applyDateFilter
+                    )
+                }
+
+                // Sort Button
                 Menu {
                     Button("Order by Date") {
                         sortByDate.toggle()
@@ -77,13 +101,20 @@ struct ArticleListView: View {
     
     private var filteredArticles: [Article] {
         let sortedArticles = sortByDate ? articles.sorted(by: { $0.publishedAt > $1.publishedAt }) : articles
-        if searchText.isEmpty {
-            return sortedArticles
+        
+        // Apply search and date filters
+        return sortedArticles.filter { article in
+            let matchesSearchText = searchText.isEmpty || article.title.lowercased().contains(searchText.lowercased()) || article.descriptionText.lowercased().contains(searchText.lowercased())
+            let matchesDateRange = isArticleWithinDateRange(article)
+            return matchesSearchText && matchesDateRange
         }
-        return sortedArticles.filter {
-            $0.title.lowercased().contains(searchText.lowercased()) ||
-            $0.descriptionText.lowercased().contains(searchText.lowercased())
+    }
+    
+    private func isArticleWithinDateRange(_ article: Article) -> Bool {
+        guard let startDate = selectedStartDate, let endDate = selectedEndDate else {
+            return true // No date range selected
         }
+        return article.publishedAt >= startDate && article.publishedAt <= endDate
     }
     
     private func toggleBookmark(for article: Article) {
@@ -100,7 +131,6 @@ struct ArticleListView: View {
             switch result {
             case .success(let newArticles):
                 DispatchQueue.main.async {
-                    // Remove duplicates based on the `url` property
                     let uniqueArticles = newArticles.filter { newArticle in
                         !self.articles.contains(where: { $0.url == newArticle.url })
                     }
@@ -112,5 +142,10 @@ struct ArticleListView: View {
                 isLoading = false
             }
         }
+    }
+    
+    private func applyDateFilter() {
+        // Refresh articles based on the selected date range
+        print("Filtering articles from \(selectedStartDate ?? Date()) to \(selectedEndDate ?? Date())")
     }
 }
